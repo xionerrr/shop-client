@@ -1,5 +1,14 @@
-const App = () => {
-  return <div className="App"></div>;
-};
+import { AppRoutes } from 'routes'
+import * as S from 'styles/App'
+import { GlobalStyles } from 'styles/global'
 
-export default App;
+const App = () => {
+  return (
+    <S.App>
+      <AppRoutes />
+      <GlobalStyles />
+    </S.App>
+  )
+}
+
+export default App

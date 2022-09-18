@@ -1,5 +1,7 @@
 import { AppRoutes } from 'routes'
-import * as S from 'styles/App'
+
+import * as S from 'styles/app'
+
 import { GlobalStyles } from 'styles/global'
 
 const App = () => {

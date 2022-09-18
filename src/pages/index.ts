@@ -1,2 +1,5 @@
 export { Home } from './Home'
+export { Todos } from './Todos'
+export { Settings } from './Settings'
 export { NotFound } from './NotFound'
+export { Auth } from './Auth'

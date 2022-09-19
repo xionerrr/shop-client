@@ -1,15 +1,15 @@
-import { Button, Form, Typography } from 'antd'
-import { useState } from 'react'
+import { Form } from 'antd'
+import { useEffect, useState } from 'react'
 
-import { SignIn, T_SignInForm } from './SignIn'
-import { SignUp, T_SignUpForm } from './SignUp'
+import { T_AuthForm } from './models'
+import { SignIn } from './SignIn'
+import { SignUp } from './SignUp'
 import * as S from './styles'
 
 export const Auth = () => {
   const [isActive, setIsActive] = useState<boolean>(false)
 
-  const [signInForm] = Form.useForm<T_SignInForm>()
-  const [signUpForm] = Form.useForm<T_SignUpForm>()
+  const [authForm] = Form.useForm<T_AuthForm>()
 
   const handleToggleActiveTab = () => {
     setIsActive((prev) => !prev)
@@ -24,7 +24,7 @@ export const Auth = () => {
             {isActive ? `Sign In` : `Sign Up`}
           </S.SwitchTabButton>
         </S.SwitchTabParagraph>
-        {isActive ? <SignUp signUpForm={signUpForm} /> : <SignIn signInForm={signInForm} />}
+        {isActive ? <SignUp authForm={authForm} /> : <SignIn authForm={authForm} />}
       </S.AuthInner>
     </S.Auth>
   )

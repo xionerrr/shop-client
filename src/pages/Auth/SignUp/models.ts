@@ -1,10 +1,7 @@
 import { FormInstance } from 'antd'
 
-export type T_SignUpForm = {
-  email: string
-  password: string
-}
+import { T_AuthForm } from '../models'
 
 export interface I_SignUpProps {
-  signUpForm: FormInstance<T_SignUpForm>
+  authForm: FormInstance<T_AuthForm>
 }

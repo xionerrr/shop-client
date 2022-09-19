@@ -4,11 +4,13 @@ import AuthSlice from './auth'
 import UISlice from './ui'
 
 import { authAPI } from 'services/auth'
+import { todoAPI } from 'services/todo'
 
 const rootReducer = combineReducers({
   [AuthSlice.name]: AuthSlice.reducer,
   [UISlice.name]: UISlice.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
+  [todoAPI.reducerPath]: todoAPI.reducer,
 })
 
 export const store = configureStore({
@@ -16,7 +18,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat([authAPI.middleware]),
+    }).concat([authAPI.middleware, todoAPI.middleware]),
 })
 
 export type RootState = ReturnType<typeof store.getState>

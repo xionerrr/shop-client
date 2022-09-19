@@ -1,18 +1,30 @@
 import { Layout, Menu } from 'antd'
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { menuItems } from './data'
 import { I_MainLayoutProps } from './models'
 import * as S from './styles'
 
+import { useStoreDispatch } from 'hooks/useStoreDispatch'
+import { signOut } from 'store/auth'
+import { ROUTES } from 'utils/constants/routes'
+
 export const MainLayout = ({ children }: I_MainLayoutProps) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
 
+  const dispatch = useStoreDispatch()
+
   const location = useLocation()
+  const navigate = useNavigate()
 
   const handleCollapse = () => {
     setIsCollapsed((prev) => !prev)
+  }
+
+  const handleSignOut = () => {
+    dispatch(signOut())
+    navigate(ROUTES.auth)
   }
 
   return (
@@ -27,6 +39,9 @@ export const MainLayout = ({ children }: I_MainLayoutProps) => {
             selectedKeys={[location.pathname.split('/')[1]]}
             items={menuItems}
           />
+          <S.SignOut>
+            <S.SignOutButton onClick={handleSignOut}>Sign out</S.SignOutButton>
+          </S.SignOut>
         </Layout.Sider>
         <Layout>
           <Layout.Content>

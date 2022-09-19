@@ -3,8 +3,10 @@ import type { ValidateErrorEntity } from 'rc-field-form/lib/interface.d'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { I_SignInProps, T_SignInForm } from './models'
+import { I_SignInProps } from './models'
 import * as S from './styles'
+
+import { T_AuthForm } from '../models'
 
 import { useStoreDispatch } from 'hooks/useStoreDispatch'
 import { authAPI } from 'services/auth'
@@ -12,21 +14,21 @@ import { signIn } from 'store/auth'
 import { ROUTES } from 'utils/constants/routes'
 import { LocalStorage } from 'utils/helpers/localStorage'
 
-export const SignIn = ({ signInForm }: I_SignInProps) => {
+export const SignIn = ({ authForm }: I_SignInProps) => {
   const [localSignIn, { data: localSignInData }] = authAPI.useLocalSignInMutation()
 
   const dispatch = useStoreDispatch()
 
   const navigate = useNavigate()
 
-  const onFinish = (values: T_SignInForm) => {
+  const onFinish = (values: T_AuthForm) => {
     localSignIn({
       email: values.email,
       password: values.password,
     })
   }
 
-  const onFinishFailed = (errorInfo: ValidateErrorEntity<T_SignInForm>) => {
+  const onFinishFailed = (errorInfo: ValidateErrorEntity<T_AuthForm>) => {
     console.log('Failed:', errorInfo)
   }
 
@@ -42,10 +44,11 @@ export const SignIn = ({ signInForm }: I_SignInProps) => {
     <S.SignIn>
       <Form
         name='basic'
+        style={{ minWidth: 425 }}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
-        form={signInForm}
+        form={authForm}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete='off'
@@ -66,7 +69,7 @@ export const SignIn = ({ signInForm }: I_SignInProps) => {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type='ghost' htmlType='submit'>
-            SignIn
+            Sign in
           </Button>
         </Form.Item>
       </Form>

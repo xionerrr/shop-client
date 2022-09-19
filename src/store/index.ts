@@ -3,9 +3,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import AuthSlice from './auth'
 import UISlice from './ui'
 
+import { authAPI } from 'services/auth'
+
 const rootReducer = combineReducers({
   [AuthSlice.name]: AuthSlice.reducer,
   [UISlice.name]: UISlice.reducer,
+  [authAPI.reducerPath]: authAPI.reducer,
 })
 
 export const store = configureStore({
@@ -13,7 +16,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }),
+    }).concat([authAPI.middleware]),
 })
 
 export type RootState = ReturnType<typeof store.getState>

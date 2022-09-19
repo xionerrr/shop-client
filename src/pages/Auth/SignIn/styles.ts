@@ -1,3 +1,8 @@
 import styled from 'styled-components'
 
-export const SignIn = styled.div``
+export const SignIn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`

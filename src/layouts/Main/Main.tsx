@@ -32,7 +32,7 @@ export const MainLayout = ({ children }: I_MainLayoutProps) => {
           <Layout.Content>
             <S.Background>{children}</S.Background>
           </Layout.Content>
-          <Layout.Footer>Todos (AntD + React + Nest)</Layout.Footer>
+          <Layout.Footer style={{ textAlign: 'center' }}>Todos (AntD + React + Nest)</Layout.Footer>
         </Layout>
       </Layout>
     </S.MainLayout>

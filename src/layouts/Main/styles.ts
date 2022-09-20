@@ -21,6 +21,7 @@ export const SignOut = styled.div`
   height: 100%;
   min-height: 36px;
   max-height: 48px;
+  margin-top: 16px;
 `
 
 export const SignOutButton = styled(Button)`

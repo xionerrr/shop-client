@@ -8,16 +8,8 @@ import { I_Todo } from 'services/todo/models'
 export const Todos = () => {
   const [todos, setTodos] = useState<I_Todo[]>()
 
-  const [
-    getTodos,
-    {
-      data: getTodosData,
-      isSuccess: getTodosSuccess,
-      isLoading: getTodosLoading,
-      isError: getTodosError,
-      isFetching: todosFetching,
-    },
-  ] = todoAPI.useLazyGetTodosQuery()
+  const [getTodos, { data: getTodosData, isSuccess: getTodosSuccess, isFetching: todosFetching }] =
+    todoAPI.useLazyGetTodosQuery()
 
   useLayoutEffect(() => {
     getTodos()
@@ -27,9 +19,7 @@ export const Todos = () => {
     if (getTodosData) setTodos(getTodosData)
   }, [getTodosData])
 
-  if (todosFetching) return null
-
-  if (getTodosError) return <div>error</div>
+  if (todosFetching) return <S.TodosLoading>Loading...</S.TodosLoading>
 
   if (todos && getTodosSuccess)
     return (

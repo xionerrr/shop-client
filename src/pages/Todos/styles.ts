@@ -8,6 +8,8 @@ export const Todos = styled.div`
   height: 100%;
 `
 
+export const TodosLoading = styled.div``
+
 export const Todo = styled.div`
   display: flex;
   flex-direction: column;

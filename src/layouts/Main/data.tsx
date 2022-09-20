@@ -1,4 +1,9 @@
-import { HomeOutlined, UnorderedListOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+  HomeOutlined,
+  UnorderedListOutlined,
+  SettingOutlined,
+  WechatOutlined,
+} from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -24,4 +29,5 @@ export const menuItems: MenuItem[] = [
   getItem(<Link to={ROUTES.home}>Home</Link>, 'home', <HomeOutlined />),
   getItem(<Link to={ROUTES.todos}>Todos</Link>, 'todos', <UnorderedListOutlined />),
   getItem(<Link to={ROUTES.settings}>Settings</Link>, 'settings', <SettingOutlined />),
+  getItem(<Link to={ROUTES.chat}>Chat</Link>, 'chat', <WechatOutlined />),
 ]

@@ -1,5 +1,4 @@
-import { Typography } from 'antd'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useEffect, useState } from 'react'
 
 import * as S from './styles'
 
@@ -9,15 +8,26 @@ import { I_Todo } from 'services/todo/models'
 export const Todos = () => {
   const [todos, setTodos] = useState<I_Todo[]>()
 
-  const {
-    data: getTodosData,
-    isSuccess: getTodosSuccess,
-    isError: getTodosError,
-  } = todoAPI.useGetTodosQuery()
+  const [
+    getTodos,
+    {
+      data: getTodosData,
+      isSuccess: getTodosSuccess,
+      isLoading: getTodosLoading,
+      isError: getTodosError,
+      isFetching: todosFetching,
+    },
+  ] = todoAPI.useLazyGetTodosQuery()
 
   useLayoutEffect(() => {
+    getTodos()
+  }, [])
+
+  useEffect(() => {
     if (getTodosData) setTodos(getTodosData)
   }, [getTodosData])
+
+  if (todosFetching) return null
 
   if (getTodosError) return <div>error</div>
 

@@ -3,12 +3,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import AuthSlice from './auth'
 import UISlice from './ui'
 
+import { chatSlice } from 'pages/Chat/slice'
 import { authAPI } from 'services/auth'
 import { todoAPI } from 'services/todo'
 
 const rootReducer = combineReducers({
   [AuthSlice.name]: AuthSlice.reducer,
   [UISlice.name]: UISlice.reducer,
+  [chatSlice.name]: chatSlice.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [todoAPI.reducerPath]: todoAPI.reducer,
 })

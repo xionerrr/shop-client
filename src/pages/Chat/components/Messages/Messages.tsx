@@ -1,27 +1,28 @@
 import { useEffect, useState } from 'react'
 
-import { I_MessagesProps } from './models'
 import * as S from './styles'
 
-export const Messages = ({ socket }: I_MessagesProps) => {
-  const [messages, setMessages] = useState<string[]>([])
+import { useStoreSelector } from 'hooks/useStoreSelector'
+import { I_ChatMessage } from 'models/chat'
 
-  const messageListener = (message: string) => {
-    setMessages((prev) => [...prev, message])
-  }
+export const Messages = () => {
+  const [messages, setMessages] = useState<I_ChatMessage[]>([])
+
+  const chatMessages = useStoreSelector((state) => state.chat.chatMessages)
 
   useEffect(() => {
-    socket.on('message', messageListener)
-
-    return () => {
-      socket.off('message', messageListener)
-    }
-  }, [messageListener])
+    if (chatMessages) setMessages(chatMessages)
+  }, [chatMessages])
 
   return (
     <S.Messages>
-      {messages.map((message, index) => {
-        return <div key={index}>{message}</div>
+      {messages.map((message) => {
+        return (
+          <div key={message.id}>
+            <div>Message: {message.text}</div>
+            <div style={{ fontSize: '12px' }}>Sender: {message.author}</div>
+          </div>
+        )
       })}
     </S.Messages>
   )

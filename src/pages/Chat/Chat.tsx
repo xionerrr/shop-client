@@ -1,28 +1,35 @@
-import { useLayoutEffect, useState } from 'react'
-import io, { Socket } from 'socket.io-client'
+import { useLayoutEffect } from 'react'
 
 import { MessagesInput } from './components/MessageInput'
 import { Messages } from './components/Messages'
+import { subscribe, unsubscribe } from './socket'
 import * as S from './styles'
 
-const newSocket = io('http://localhost:8000/')
+import { useStoreDispatch } from 'hooks/useStoreDispatch'
+import { E_Chat } from 'models/chat'
+import { socket } from 'services/socket'
 
 export const Chat = () => {
-  const [socket, setSocket] = useState<Socket>()
+  const dispatch = useStoreDispatch()
 
   const handleSendMessage = (message: string) => () => {
-    socket?.emit('message', message)
+    socket.emit(E_Chat.sendChatMessage, { text: message })
   }
 
   useLayoutEffect(() => {
-    setSocket(newSocket)
-  }, [socket])
+    dispatch(subscribe())
+    socket.emit(E_Chat.requestChatMessages)
+
+    return () => {
+      unsubscribe()
+    }
+  }, [dispatch])
 
   if (socket)
     return (
       <S.Chat>
         <MessagesInput handleSendMessage={handleSendMessage} />
-        <Messages socket={socket} />
+        <Messages />
       </S.Chat>
     )
 
